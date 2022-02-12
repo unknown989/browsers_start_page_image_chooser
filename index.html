@@ -129,6 +129,14 @@
             setImageURL(url);
             document.getElementById("chooser").classList.add("hidden");
         })
+        function ChangeUrl(title, url) {  
+            if (typeof(history.replaceState) != "undefined") {  
+                var obj = { Title: title, Url: url };  
+                history.replaceState(obj, obj.Title, obj.Url);  
+            } else {  
+                alert("Browser does not support HTML5.");  
+            }  
+        } 
         function setImageURL(url) {
             localStorage.setItem("img_src", url);
             var img = document.getElementById("image");
@@ -138,6 +146,7 @@
 
         }
         try {
+            ChangeUrl(null,null,"");
             var getURL = localStorage.getItem("img_src");
             if (!getURL) {
                 document.getElementById("chooser").classList.remove("hidden");
