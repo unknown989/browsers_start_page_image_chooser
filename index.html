@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/2285/2285485.png" type="image/x-icon">
+    <title>Brave Start Page</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: Roboto;
+            overflow: hidden;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .popup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+        }
+
+        input {
+            width: 80%;
+            border: 2px solid #aaa;
+            height:40px;
+            border-radius: 4px;
+            font-size: large;
+            outline: none;
+            font-size: large;
+            padding: 10px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        .btn {
+            background-color: #eee;
+            border: 1px solid #aaa;
+            color: black;
+            font-size: large;
+            margin-top: 200px;
+            text-align: center;
+            border-radius: 4px;
+            padding: 10px;
+            width: 40vh;
+            outline: none;
+            transition: 300ms ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #ddd;
+        }
+        .container{
+            width:100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border:1px solid #aaa;
+            background-color: #eee;
+            border-radius: 4px;
+            color:#333;
+        }
+        .nobtn{
+            position: absolute;
+            border:0px;
+            top:99%;
+            left: 99%;
+            transform: translate(-99%,-99%);
+            font-size: large;
+            background-color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            width:25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 200ms ease;
+        }
+        .nobtn:hover{
+            background-color: #bebebe;
+        }
+        .icon{
+            width: 16px;
+            height: 16px;
+        }
+        img{
+            opacity: 100%;
+            animation: image-appearance 500ms ease;
+        }
+        @keyframes image-appearance {
+            from{opacity: 0%;}
+            to{opacity: 100%;}
+        }
+    </style>
+</head>
+
+<body>
+    <img src="" alt="Background" id="image">
+    <div id="settings-div"><button class="nobtn" id="settings"><img class="icon" src="https://cdn-icons-png.flaticon.com/512/512/512142.png" alt=""></button></div>
+    <div class="hidden popup" id="chooser">
+
+            <div class="container">
+                <h1>Change Background</h1>
+                <input type="text" id="image_url" placeholder="Please add an Image URL...">
+                <button class="btn" id="btn">Submit</button>
+            </div>
+    </div>
+    <script>
+        document.getElementById("settings").addEventListener("click",()=>{
+            document.getElementById("chooser").classList.toggle("hidden");
+        })
+        document.getElementById("btn").addEventListener("click", () => {
+            let url = document.getElementById("image_url").value;
+            setImageURL(url);
+            document.getElementById("chooser").classList.add("hidden");
+        })
+        function setImageURL(url) {
+            localStorage.setItem("img_src", url);
+            var img = document.getElementById("image");
+            img.setAttribute("src", getURL);
+            img.style.width = window.screen.width+"px";
+            img.style.height = window.screen.height+"px";
+
+        }
+        try {
+            var getURL = localStorage.getItem("img_src");
+            if (!getURL) {
+                document.getElementById("chooser").classList.remove("hidden");
+            }else{
+                var img = document.getElementById("image");
+                img.setAttribute("src", getURL);
+                img.style.width = window.screen.width+"px";
+                img.style.height = window.screen.height+"px";
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    </script>
+</body>
+
+</html>
