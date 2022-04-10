@@ -101,6 +101,8 @@
         img{
             opacity: 100%;
             animation: image-appearance 500ms ease;
+            width:100vw;
+            height:100vh;
         }
         @keyframes image-appearance {
             from{opacity: 0%;}
@@ -141,8 +143,6 @@
             localStorage.setItem("img_src", url);
             var img = document.getElementById("image");
             img.setAttribute("src", getURL);
-            img.style.width = window.screen.width+"px";
-            img.style.height = window.screen.height+"px";
 
         }
         try {
@@ -153,8 +153,6 @@
             }else{
                 var img = document.getElementById("image");
                 img.setAttribute("src", getURL);
-                img.style.width = window.screen.width+"px";
-                img.style.height = window.screen.height+"px";
             }
         } catch (e) {
             console.error(e);
